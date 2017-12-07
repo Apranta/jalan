@@ -1,0 +1,52 @@
+<ion-modal-view>
+   <ion-header-bar>
+      <h1 class = "title">Edit Data Jalan</h1>
+      <button class = "button icon icon-left ion-ios-close-outline"
+         ng-click = "closeModal()"></button>
+   </ion-header-bar>
+    
+   <ion-content padding="true">
+    <form class="list" ng-submit="edit()" name="myForm" novalidate>
+        <ion-list>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Nama jalan</span>
+                <input ng-model="data_jalan.nama" type="text" placeholder="Masukan Nama data_jalan" ng-value="{{data_jalan.nama}}">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Kelurahan</span>
+                <input ng-model="data_jalan.kelurahan" type="text" placeholder="Masukan Kelurahan">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Kecamatan</span>
+                <input ng-model="data_jalan.kecamatan" type="text" placeholder="Masukan Kecamatan">
+            </label>
+            <label class="item item-input item-select">
+                <span class="input-label">Perkerasan data_jalan</span>
+                <select ng-model="data_jalan.perkerasan">
+                    <option value="tanah">Tanah</option>
+                    <option value="semen">Semen</option>
+                    <option value="aspal">Aspal</option>
+                </select>
+            </label>
+            <label class="item item-input item-select">
+                <span class="input-label">Kondisi data_jalan</span>
+                <select ng-model="data_jalan.kondisi">
+                    <option value="baik">Baik</option>
+                    <option value="sedang">Sedang</option>
+                    <option value="buruk">Buruk</option>
+                </select>
+            </label>
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                  <input type="text" ng-model="data_jalan.LongLat" placeholder="Latitude , Longitude" readonly>
+                </label>
+                <a class="button button-icon icon ion-android-map"></a>
+            </div>
+        </ion-list>
+        <div style="height: 20px;"></div>
+        <center>
+        <input type="submit" name="submit" class="button button-assertive" value="Update">
+        </center>
+    </form>
+  </ion-content>
+</ion-modal-view>

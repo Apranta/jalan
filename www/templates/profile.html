@@ -1,0 +1,24 @@
+<ion-view view-title="Profile">
+  <ion-content>
+    <br><br>
+    <div align="center">
+      <img src="img/img.jpg" class="full-image" style="width: 50%">
+    </div>
+    <hr>
+  	<div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Nama</span>
+        <input type="text" value="{{nama}}" readonly="">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">NIP</span>
+        <input type="text" value="{{nip}}" readonly>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Jabatan</span>
+        <input type="text" value="{{jabatan}}" readonly="">
+      </label>
+    </div>
+    <a class="button button-block button-calm" href="#/app/profile/edit">Update Profile</a>
+  </ion-content>
+</ion-view>

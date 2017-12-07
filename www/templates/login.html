@@ -1,0 +1,22 @@
+<ion-view title="Login" hide-nav-bar="true">
+    <ion-content padding="true" class="has-header" scroll="false">
+        <div align="center">
+          <img src="img/logo.jpg" class="full-image" style="width: 30%">
+        </div>
+        <h4 align="center">Sistem Informasi Geografis Untuk Pemetaan Kondisi Jalan<br>Dinas PUBM dan PSDA Kota Palembang</h4><br>
+        <form class="list" >
+            <ion-list>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Nip</span>
+                    <input ng-model="user.nip" type="text" placeholder="Masukan Nip" >
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Password</span>
+                    <input ng-model="user.password" type="password" placeholder="Masukan Password">
+                </label>
+            </ion-list>
+            <div class="spacer" style="height: 40px;"></div>
+            <button  class="button button-stable button-assertive button-block" ng-click="login()" >Log in</button>
+        </form>
+    </ion-content>
+</ion-view>

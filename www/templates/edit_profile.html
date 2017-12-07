@@ -1,0 +1,35 @@
+<ion-view view-title="Edit Profile">
+  <ion-content>
+    <div style="height: 20px;">
+    </div>
+    <form class="list" ng-submit="profil()" name="myForm" novalidate>
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">NIP </span>
+                <input type="text" placeholder="Nip anda" ng-model="nip" value="{{nip}}" ng-value="{{nip}}" readonly>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Nama </span>
+                <input type="text" placeholder="nama anda" ng-model="nama" value="{{nama}}" ng-value="{{nama}}">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">No Telepon</span>
+                
+                <input type="text" placeholder="No telepon" name="telepon" ng-model="telepon" ng-value="{{telepon}}"  required>
+            </label>
+			
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Email </span>
+                <input type="text" placeholder="nama anda" ng-model="email" value="{{email}}" ng-value="{{email}}">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Jabatan </span>
+                <input type="text" placeholder="jabatan anda" ng-model="jabatan" value="{{jabatan}}" ng-value="{{jabatan}}">
+            </label>
+
+            <div style="height: 20px;"></div>
+            <input type="submit" name="update" value="Update Profil" class="button button-stable button-assertive button-block" data-ink-opacity="1">
+        </div>
+    </form>
+  </ion-content>
+</ion-view>

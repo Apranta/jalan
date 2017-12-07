@@ -1,0 +1,54 @@
+<ion-view view-title="Data Jalan" >
+  <ion-content padding="true">
+  	<div align="center">
+  		<img ng-src="{{pathForImage(image)}}" style="max-width: 50%;" align="center">
+  	</div>
+  	<!-- <div class="spacer" style="height: 40px;"></div> -->
+      <button class="button button-assertive button-block icon-left ion-camera" ng-click="loadImage()">Take Photo</button>
+    <form class="list" >
+        <ion-list>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Nama Jalan</span>
+                <input ng-model="jalan.nama" type="text" placeholder="Masukan Nama Jalan" >
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Kelurahan</span>
+                <input ng-model="jalan.kelurahan" type="text" placeholder="Masukan Kelurahan">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Kecamatan</span>
+                <input ng-model="jalan.kecamatan" type="text" placeholder="Masukan Kecamatan">
+            </label>
+            <label class="item item-input item-select">
+                <span class="input-label">Perkerasan jalan</span>
+                <select ng-model="jalan.perkerasan">
+                	<option value="tanah">Tanah</option>
+                	<option value="semen">Semen</option>
+                	<option value="aspal">Aspal</option>
+                </select>
+            </label>
+            <label class="item item-input item-select">
+                <span class="input-label">Kondisi jalan</span>
+                <select ng-model="jalan.kondisi">
+                	<option value="baik">Baik</option>
+                	<option value="sedang">Sedang</option>
+                	<option value="buruk">Buruk</option>
+                </select>
+            </label>
+            <div class="item item-input-inset">
+			    <label class="item-input-wrapper">
+			      <input type="text" ng-model="jalan.kondisi" placeholder="Latitude , Longitude" readonly>
+			    </label>
+			    <a class="button button-icon icon ion-android-map"></a>
+  			</div>
+        </ion-list>
+        <div class="spacer" style="height: 40px;"></div>
+        <!-- <button  class="button button-stable button-assertive button-block" ng-click="login()" >Log in</button> -->
+    </form>
+    </ion-content>
+    <ion-footer-bar class="bar bar-positive">
+      <div class="button-bar">
+        <button class="button icon-left ion-upload" ng-click="uploadImage()" >Submit</button>
+      </div>
+    </ion-footer-bar>
+</ion-view>

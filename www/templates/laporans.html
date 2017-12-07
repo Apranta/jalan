@@ -1,0 +1,11 @@
+<ion-view view-title="Laporan">
+  <ion-content padding="true">
+  	<div class="list" ng-repeat="playlist in playlists">
+	    <a class="item item-avatar" href="#/app/laporans/{{playlist.id_data}}">
+	      <img src="http://laporan.sukara.me/img/{{''+playlist.id_data}}.jpg">
+	      <h2>{{playlist.nama}}</h2>
+	      <p>{{playlist.kondisi}}</p>
+	    </a>
+	</div>
+  </ion-content>
+</ion-view>

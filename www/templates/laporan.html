@@ -1,0 +1,22 @@
+<ion-view view-title="Detail Laporan">
+  <ion-content>
+    <div class="list card">
+    	<div class="item item-divider">
+    		{{data_jalan.nama}}
+    	</div>
+	  <div class="item item-body">
+	    <img src="http://laporan.sukara.me/img/{{''+data_jalan.id_data}}.jpg" class="full-image">
+	    <ul class="list">
+		    <li class="item">Kelurahan : {{data_jalan.kelurahan}}</li>
+		    <li class="item">Kecamatan : {{data_jalan.kecamatan}}</li>
+		    <li class="item">Perkerasan Jalan : {{data_jalan.tipe}}</li>
+		    <li class="item">Kondisi Jalan : {{data_jalan.kondisi}}</li>
+		</ul>
+		<p>
+	      <a class="subdued button button-positive" ng-click = "openModal()">Update</a>
+	      <button class="subdued button button-assertive" ng-click="delete()">Hapus</button>
+	    </p>
+	  </div>
+	</div>
+  </ion-content>
+</ion-view>
