@@ -65,77 +65,39 @@ angular.module('starter.controllers', ['ngCordova'])
 
 .controller('MapCtrl', function($scope,$http,$ionicPopup,$cordovaGeolocation,jalanServices) {
   $scope.$on('$ionicView.enter', function(e) {
-    var options = {timeout: 10000, enableHighAccuracy: true};
-    $cordovaGeolocation.getCurrentPosition(options).then(function(position){
-      
-      var latLng = new google.maps.LatLng(-2.9786144, 104.761441);
-      var directionsService = new google.maps.DirectionsService;
-      var directionsDisplay = new google.maps.DirectionsRenderer;
-      var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      var labelIndex = 0;
-      var mapOptions = {
-        center: latLng,
-        zoom: 9,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      function addMarker(location, map,nama) {
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(location),
-          map: map,
-          title:nama
-        });
-      }
-      var infoWindow = new google.maps.InfoWindow;
-      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-      var link ='http://laporan.sukara.me/jalan/get_jalan';
-      function bindInfoWindow(marker, map, infoWindow, html) {
-        google.maps.event.addListener(marker, 'click', function() {
-          infoWindow.setContent(html);
-          infoWindow.open(map, marker);
-        });
-      }
-
-      jalanServices.get()
-      .success(function (jalan) {
-          var data = jalan.data;
-          // alert(JSON.stringify(data));
-          for (var i = 0; i < data.length; i++) {
-            var location = data[i].latitude+','+data[i].longitude;
-            var html =  '<div class="list card">' +
-                          '<div class="item item-divider">'+ data[i].nama + '</div>' +
-                        '<div class="item item-body">' +
-                          '<img src="http://laporan.sukara.me/img/'+ data[i].id_data +'.jpg" class="full-image">' +
-                          '<ul class="list">'+
-                            '<li class="item">Kelurahan :'+data[i].kelurahan+'</li>'+
-                            '<li class="item">Kecamatan : '+data[i].kecamatan+'</li>'+
-                            '<li class="item">Perkerasan Jalan : '+data[i].tipe+'</li>'+
-                            '<li class="item">Kondisi Jalan : '+data[i].kondisi+'</li>'+
-                        '</ul>'+
-                        '</div>'+
-                      '</div>';
-            var marker = new google.maps.Marker({
-              position: new google.maps.LatLng(102,3),
-              map: map,
-              title:data[i].nama
-            });
-            // addMarker(location,map,data[i].nama);
-            bindInfoWindow(marker, map, infoWindow, html);
-          }
-      })
-      .error(function (error) {
-          var alertPopup = $ionicPopup.alert({
-                  title: 'Warning',
-                  template: 'Koneksi Error'
+      var options = {timeout: 10000, enableHighAccuracy: true};
+      $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+        var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        var mapOptions = {
+          center: latLng,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        jalanServices.get()
+          .success(function (jalan) {
+              var data = jalan.data;
+              for (var i = 0; i < data.length; i++) {
+                var marker = new google.maps.Marker({
+                    map: $scope.map,
+                    position: new google.maps.LatLng(data.latitude, data.longitude)
+                });     
+               
+                var infoWindow = new google.maps.InfoWindow({
+                    content: data.nama
+                });
+              }
+          })
+          .error(function (error) {
+              $scope.status = 'Unable to load data: ' + error.message;
+              alert($scope.status);
           });
+        $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.open($scope.map, marker);
+        });
+      }, function(error){
+        console.log("Could not get location" +JSON.stringify(error));
       });
-          // Add a marker at the center of the map.
-          // addMarker(latLng, map);
-        directionsDisplay.setMap(map);
-        // calculateAndDisplayRoute(directionsService, directionsDisplay);
-        $scope.map = map;  
-    }, function(error){
-      console.log("Could not get location");
-    });
   });
 })
 
@@ -202,9 +164,10 @@ angular.module('starter.controllers', ['ngCordova'])
   }
 })
 
-.controller('MainCtrl', function($scope, $ionicModal, $stateParams, $http, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, $cordovaDevice, $ionicPopup, $cordovaActionSheet,$ionicActionSheet, $base64) {
+.controller('MainCtrl', function($scope,$cordovaGeolocation, $ionicModal, $stateParams, $http, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, $cordovaDevice, $ionicPopup, $cordovaActionSheet,$ionicActionSheet, $base64) {
   $scope.image = null;
   $scope.jalan = {};
+  $scope.jalan.latlong = null;
   var jalan = {};
   $scope.showAlert = function(title, msg) {
     var alertPopup = $ionicPopup.alert({
@@ -248,7 +211,26 @@ angular.module('starter.controllers', ['ngCordova'])
    });
   
    $scope.openModal = function() {
+     var options = {timeout: 10000, enableHighAccuracy: true};
+      $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+        var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        var mapOptions = {
+          center: latLng,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+     
+        $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+     
+      }, function(error){
+        console.log("Could not get location" +JSON.stringify(error));
+      });
+      
       $scope.modal.show();
+      google.maps.event.addListener($scope.map, 'click', function(event) {
+          $scope.jalan.latlong =  event.latLng;
+          $scope.closeModal();
+      });
    };
   
    $scope.closeModal = function() {
